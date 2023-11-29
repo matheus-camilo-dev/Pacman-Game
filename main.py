@@ -1,5 +1,6 @@
 import sys
 import time as timer
+from time import sleep
 
 import pygame
 
@@ -87,16 +88,15 @@ def get_elements_from_map(game_map):
 def game_menu() -> None:
     music.play(-1)
     music.set_volume(0.1)
-    screen.fill(Colors.BLACK)
-    text_width, text_height = game_font.size('Pacman')
-    text_surface = game_font.render('Pacman', False, Colors.YELLOW)
-    screen.blit(text_surface, ((Game.WIDTH - text_width) // 2, (Game.HEIGHT - text_height) // 2))
-    text_width, text_height = game_font.size('Pressione Qualquer tecla para iniciar!')
-    text_surface = game_font.render('Pressione Qualquer tecla para iniciar!', False, Colors.WHITE)
-    screen.blit(text_surface, ((Game.WIDTH - text_width) // 2, (Game.HEIGHT - text_height) // 2 + text_height))
-    pygame.display.update()
     
-    while True:    
+    while True:
+        screen.fill(Colors.BLACK)
+        text_width, text_height = game_font.size('Pacman')
+        text_surface = game_font.render('Pacman', False, Colors.YELLOW)
+        screen.blit(text_surface, ((Game.WIDTH - text_width) // 2, (Game.HEIGHT - text_height) // 2))
+        text_width, text_height = game_font.size('Pressione Qualquer tecla para iniciar!')
+        text_surface = game_font.render('Pressione Qualquer tecla para iniciar!', False, Colors.WHITE)
+        screen.blit(text_surface, ((Game.WIDTH - text_width) // 2, (Game.HEIGHT - text_height) // 2 + text_height))
         for event in pygame.event.get():
             # Player Event
             if event.type == pygame.KEYDOWN:
@@ -107,39 +107,40 @@ def game_menu() -> None:
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+                
+        pygame.display.update()
 
 def game_win(finish_time : float, points : int, high_score : int) -> None:
-    text_width1, text_height1 = game_font.size('Parabéns!')
-    text_width2, text_height2 = game_font.size('Você Ganhou!')
-    text_width3, text_height3 = game_font.size(f'Tempo: {finish_time:.2f}s')
-    text_width4, text_height4 = game_font.size(f'Pontos: {points}')
-    text_width5, text_height5 = game_font.size(f'Recorde: {high_score}')
-    text_width7, text_height7 = game_font.size("Pressione 'r' para reiniciar o jogo!")
-    
-    
-    screen.fill(Colors.BLACK)
-    text_surface = game_font.render('Parabéns!', False, Colors.YELLOW)
-    screen.blit(text_surface, ((Game.WIDTH - text_width1) // 2, (Game.HEIGHT - text_height1 * 5) // 2))
-    text_surface = game_font.render('Você Ganhou!!', False, Colors.WHITE)
-    screen.blit(text_surface, ((Game.WIDTH - text_width2) // 2, (Game.HEIGHT - text_height2 * 5) // 2 + text_height1))
-    text_surface = game_font.render(f'Tempo: {finish_time:.2f}s', False, Colors.WHITE)
-    screen.blit(text_surface, ((Game.WIDTH - text_width3) // 2, (Game.HEIGHT - text_height3 * 5) // 2 + text_height2*2))
-    text_surface = game_font.render(f'Pontos: {points}', False, Colors.WHITE)
-    screen.blit(text_surface, ((Game.WIDTH - text_width4) // 2, (Game.HEIGHT - text_height4 * 5) // 2 + text_height3*3))
-    text_surface = game_font.render(f'Recorde: {high_score}', False, Colors.WHITE)
-    screen.blit(text_surface, ((Game.WIDTH - text_width5) // 2, (Game.HEIGHT - text_height5  * 5) // 2 + text_height4*4))
-    text_surface = game_font.render("Pressione 'r' para reiniciar o jogo!", False, Colors.WHITE)
-    screen.blit(text_surface, ((Game.WIDTH - text_width7) // 2, (Game.HEIGHT - text_height7  * 5) // 2 + text_height4*5))
-    
-    if high_score < points:
-        text_width6, text_height6 = game_font.size('Novo Recorde!')
-        text_surface = game_font.render('Novo Recorde!', False, Colors.YELLOW)
-        screen.blit(text_surface, ((Game.WIDTH - text_width6) // 2, (Game.HEIGHT - text_height6 * 5) // 2 + text_height5*6))
-        high_score = points
-    
-    pygame.display.flip()
     
     while True:        
+        text_width1, text_height1 = game_font.size('Parabéns!')
+        text_width2, text_height2 = game_font.size('Você Ganhou!')
+        text_width3, text_height3 = game_font.size(f'Tempo: {finish_time:.2f}s')
+        text_width4, text_height4 = game_font.size(f'Pontos: {points}')
+        text_width5, text_height5 = game_font.size(f'Recorde: {high_score}')
+        text_width7, text_height7 = game_font.size("Pressione 'r' para reiniciar o jogo!")
+        
+        
+        screen.fill(Colors.BLACK)
+        text_surface = game_font.render('Parabéns!', False, Colors.YELLOW)
+        screen.blit(text_surface, ((Game.WIDTH - text_width1) // 2, (Game.HEIGHT - text_height1 * 5) // 2))
+        text_surface = game_font.render('Você Ganhou!!', False, Colors.WHITE)
+        screen.blit(text_surface, ((Game.WIDTH - text_width2) // 2, (Game.HEIGHT - text_height2 * 5) // 2 + text_height1))
+        text_surface = game_font.render(f'Tempo: {finish_time:.2f}s', False, Colors.WHITE)
+        screen.blit(text_surface, ((Game.WIDTH - text_width3) // 2, (Game.HEIGHT - text_height3 * 5) // 2 + text_height2*2))
+        text_surface = game_font.render(f'Pontos: {points}', False, Colors.WHITE)
+        screen.blit(text_surface, ((Game.WIDTH - text_width4) // 2, (Game.HEIGHT - text_height4 * 5) // 2 + text_height3*3))
+        text_surface = game_font.render(f'Recorde: {high_score}', False, Colors.WHITE)
+        screen.blit(text_surface, ((Game.WIDTH - text_width5) // 2, (Game.HEIGHT - text_height5  * 5) // 2 + text_height4*4))
+        text_surface = game_font.render("Pressione 'r' para reiniciar o jogo!", False, Colors.WHITE)
+        screen.blit(text_surface, ((Game.WIDTH - text_width7) // 2, (Game.HEIGHT - text_height7  * 5) // 2 + text_height4*5))
+        
+        if high_score < points:
+            text_width6, text_height6 = game_font.size('Novo Recorde!')
+            text_surface = game_font.render('Novo Recorde!', False, Colors.YELLOW)
+            screen.blit(text_surface, ((Game.WIDTH - text_width6) // 2, (Game.HEIGHT - text_height6 * 5) // 2 + text_height5*6))
+            high_score = points
+    
         for event in pygame.event.get():
             # Player Event
             if event.type == pygame.KEYDOWN:
@@ -150,6 +151,7 @@ def game_win(finish_time : float, points : int, high_score : int) -> None:
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+        pygame.display.flip()
 
 def game_run(old_player_lifes = None, old_player_points = None, old_game_timer = None,
              old_fruits_rects = None, old_special_fruits_rects = None):
@@ -160,7 +162,6 @@ def game_run(old_player_lifes = None, old_player_points = None, old_game_timer =
     # Get elements pos from map    
     wall_array_rect, player, ghosts, fruits_rects, special_fruits_rects = get_elements_from_map(map_pos)
     start_timer = timer.time()
-    print(start_timer)
 
     # Verify saved Data
     if old_player_lifes is not None:
@@ -252,7 +253,6 @@ def game_run(old_player_lifes = None, old_player_points = None, old_game_timer =
         new_player_pos = player.update_player_position(Game, wall_array_rect)
         
         # Fruit Collision
-        print(start_timer)
         if len(fruits_rects) <= 100:
             return player.lifes, player.score, actual_time - start_timer, fruits_rects, special_fruits_rects, GameStatus.WIN
         
@@ -284,8 +284,8 @@ def game_over() -> GameStatus:
     text_width, text_height = game_font.size('Game Over!')
     text_surface = game_font.render('Game Over!', False, Colors.YELLOW)
     screen.blit(text_surface, ((Game.WIDTH - text_width) // 2, (Game.HEIGHT - text_height) // 2))
-    text_width, text_height = game_font.size('Pressione Qualquer tecla para continuar!')
-    text_surface = game_font.render('Pressione Qualquer tecla para continuar!', False, Colors.WHITE)
+    text_width, text_height = game_font.size("Pressione 'r' tecla para reiniciar!")
+    text_surface = game_font.render("Pressione 'r' tecla para reiniciar!", False, Colors.WHITE)
     screen.blit(text_surface, ((Game.WIDTH - text_width) // 2, (Game.HEIGHT - text_height) // 2 + text_height))
     pygame.display.update()
     
@@ -293,7 +293,8 @@ def game_over() -> GameStatus:
         for event in pygame.event.get():
             # Player Event
             if event.type == pygame.KEYDOWN:
-                return GameStatus.STARTED
+                if event.key == pygame.K_r:                
+                    return GameStatus.STARTED
             
             # Quit Event
             if event.type == pygame.QUIT:
